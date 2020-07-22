@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('head') %>
+</head>
+<body>
+  <h1>Simple Login</h1>
+  <% if(user && user.id) { %>
+    <div>
+      로그인 후
+    </div> 
+  <% } else {%>
+    <div>
+      <form>
+        <div>
+          <div><label for='email'>email</label></div>
+          <input type='email' name='email' id='email' required autofocus></input>
+        </div>
+        <div>
+          <div><label for='password'>password</label></div>
+          <input type='password' name='password' id='password' required></input>
+        </div>
+        <div>
+          <% if(loginError) { %>
+            <div><%=loginError%></div>
+          <% }%>
+        </div>
+        <input type='submit' value='submit'></input>
+      </form>
+      <div>
+        if yout don't have an account?
+        <a href='/join'>JOIN</a>
+      </div>
+    </div>
+  <%}%> 
+</body>
+</html>

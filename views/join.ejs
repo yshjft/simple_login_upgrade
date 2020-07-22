@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('head') %>
+</head>
+<body>
+  <h1>Simple Login</h1>
+  <div>
+    <form>
+      <div>
+        <div><label for='email'>email</label></div>
+        <input type='email' name='email' id='email' required autofocus></input>
+      </div>
+      <div>
+        <div><label for='nick'>nick</label></div>
+        <input type='text' name='nick' id='nick' required></input>
+      </div>
+      <div>
+        <div><label for='password'>password</label></div>
+        <input type='password' name='password' id='password' required></input>
+      </div>
+      <div>
+        <% if(joinError) { %>
+          <div><%=joinError%></div>
+        <% }%>
+      </div>
+      <input type='submit' value='submit'></input>
+    </form>
+    <div>
+      return to
+      <a href='/'>main page</a>
+    </div>
+  </div>
+</body>
+</html>
