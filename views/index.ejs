@@ -7,11 +7,15 @@
   <h1>Simple Login</h1>
   <% if(user && user.id) { %>
     <div>
-      로그인 후
+      HI! <%=user.nick%>
+      <br/>
+      <a href='/info'>account information</a>
+      <br/>
+      <button onclick='logout()'>Logout</button>
     </div> 
   <% } else {%>
     <div>
-      <form>
+      <form method='POST' action='/auth/login'>
         <div>
           <div><label for='email'>email</label></div>
           <input type='email' name='email' id='email' required autofocus></input>
@@ -33,5 +37,22 @@
       </div>
     </div>
   <%}%> 
+  <script>
+    function logout(){
+      const xhr=new XMLHttpRequest();
+      xhr.onload=function(){
+        if(xhr.status === 200 || xhr.status===201){
+          location.href='/';
+        }
+      }
+      xhr.onerror=function(){
+        console.error(xhr.responseText);
+      }
+
+      xhr.open('GET', '/auth/logout');
+      xhr.send();
+
+    }
+  </script>
 </body>
 </html>
