@@ -8,11 +8,29 @@
   <div>
     <div><%=user.email%></div>
     <div><%=user.nick%></div>
-    <div><button>remove account</button></div>
+    <div><button onclick="remove()">remove account</button></div>
     <div>
       return to
       <a href='/'>main page</a>
     </div>
   </div>
+  <script>
+    function remove(){
+      if(confirm("really?")){
+        const xhr= new XMLHttpRequest();
+        xhr.onload=function(){
+          if(xhr.status===200 || xhr.status===201){
+            location.href='/';
+            alert('your account is removed successfully');
+          }
+        }
+        xhr.onerror=function(){
+          console.error(xhr.responseText);
+        }
+        xhr.open('DELETE', '/auth/remove');
+        xhr.send();
+      }
+    }
+  </script>
 </body>
 </html>

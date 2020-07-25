@@ -53,4 +53,17 @@ router.get('/logout', isLoggedIn, (req, res)=>{
   res.redirect('/');
 });
 
+router.delete('/remove', isLoggedIn, (req, res, next)=>{
+  User.destroy({where : {id: req.user.id}})
+  .then(result =>{
+    req.logOut();
+    req.session.destroy();
+    res.json(result);
+  })
+  .catch(error=>{
+    console.error(error);
+    next(error);
+  });
+});
+
 module.exports=router;
