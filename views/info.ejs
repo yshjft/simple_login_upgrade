@@ -6,8 +6,16 @@
 <body>
   <h1>Simple Login</h1>
   <div>
-    <div><%=user.email%></div>
-    <div><%=user.nick%></div>
+    <div>
+      <span>Email : </span>
+      <input id='email' type='email' name='email' value=<%=user.email%> onchange></input>
+    </div>
+    <div>
+      <span>nick : </span>
+      <input id='nick' type='nick' name='nick' value=<%=user.nick%> onchange></input>
+    </div>
+    <div>
+    <div><button onclick="edit()">edit info</button></div>
     <div><button onclick="remove()">remove account</button></div>
     <div>
       return to
@@ -30,6 +38,39 @@
         xhr.open('DELETE', '/auth/remove');
         xhr.send();
       }
+    }
+
+    function edit(){
+      let _email=document.getElementById('email').value;
+      let _nick=document.getElementById('nick').value;
+
+      let data={
+        email : _email,
+        nick : _nick,
+      };
+
+      console.log(_email);
+      console.log(_nick);
+
+      const xhr=new XMLHttpRequest();
+      xhr.onload=function(){
+        if(xhr.status===509){
+          return alert(xhr.responseText);
+        }
+
+        if(xhr.status === 200 || xhr.status===201){
+          alert(xhr.responseText);
+          location.href='/info';
+        }
+      }
+
+      xhr.onerror=function(){
+        console.error(xhr.responseText);
+      }
+
+      xhr.open('PATCH', '/auth/edit');
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.send(JSON.stringify(data));
     }
   </script>
 </body>

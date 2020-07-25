@@ -25,7 +25,6 @@ router.get('/info', isLoggedIn, (req, res)=>{
     {
       title: 'user info & edit',
       user:req.user,
-      correctionError : null,
     })
 })
 

@@ -53,6 +53,25 @@ router.get('/logout', isLoggedIn, (req, res)=>{
   res.redirect('/');
 });
 
+router.patch('/edit', isLoggedIn, async(req, res, next)=>{
+  const {email, nick}=req.body;
+
+  if(req.user.email !== email){
+    let exUser=await User.findOne({where : {email}});
+    if(exUser){
+      return res.status(509).send('이미 사용중인 이메일입니다.');
+    }
+  }
+  User.update({email : req.body.email, nick : req.body.nick}, {where : {id : req.user.id}})
+    .then(result=>{
+      res.send('변경 성공');
+    })
+    .catch(error=>{
+      console.error(error);
+      next(error);
+    });
+});
+
 router.delete('/remove', isLoggedIn, (req, res, next)=>{
   User.destroy({where : {id: req.user.id}})
   .then(result =>{
