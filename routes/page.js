@@ -1,14 +1,20 @@
 const express=require('express');
 const {isLoggedIn, isNotLoggedIn}= require('./middlewares');
+const {User}=require('../models');
 
 const router=express.Router();
 
-router.get('/',(req, res)=>{
+router.get('/',async(req, res)=>{
+  const _users=await User.findAll({
+    attributes :['email', 'nick'],
+  });
+
   res.render('index',
     {
       title : 'simple login', 
       user: req.user,
       loginError : req.flash('loginError'),
+      users: _users,
     });
 });
 

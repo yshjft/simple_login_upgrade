@@ -12,6 +12,19 @@
       <a href='/info'>account information</a>
       <br/>
       <button onclick='logout()'>Logout</button>
+      <div>
+        <h2>user list</h2>
+        <table border="1">
+          <th>nick</th>
+          <th>email</th>
+          <% for(let i=0; i<users.length; i++) {%>
+            <tr>
+              <td><%=users[i].nick%></td>
+              <td><%=users[i].email%></td>
+            </tr>
+          <%}%>
+        </table>
+      </div>
     </div> 
   <% } else {%>
     <div>
