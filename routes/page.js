@@ -25,7 +25,14 @@ router.get('/info', isLoggedIn, (req, res)=>{
     {
       title: 'user info & edit',
       user:req.user,
-    })
-})
+    });
+});
+
+router.get('/change_password', isLoggedIn, (req, res)=>{
+  res.render('changePWD', {
+    title : 'change_pwd',
+    user:req.user,
+  });
+});
 
 module.exports=router;

@@ -85,4 +85,21 @@ router.delete('/remove', isLoggedIn, (req, res, next)=>{
   });
 });
 
+router.patch('/changePWD', isLoggedIn, async(req, res, next)=>{
+  const {password}=req.body;
+  const hash=await bcrypt.hash(password, 12);
+
+  console.log(hash);
+
+  User.update({password : hash}, {where : {id : req.user.id}})
+    .then(result =>{
+      res.json(result);
+    })
+    .catch(error=>{
+      console.error(error);
+      next(error);
+    })
+
+});
+
 module.exports=router;

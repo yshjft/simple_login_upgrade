@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('head') %>
+</head>
+<body>
+  <h1>Simple Login</h1>
+  <div>
+    <div>
+      <span>new password : </span>
+      <input id="password" type="password" name="password"></input>
+      <button onclick="submit()">submit</button>
+      <div>
+        return to
+        <a href='/info'>account information</a>
+      </div>
+    </div>
+  </div>
+  <script>
+    function submit(){
+      let _pwd = document.getElementById("password").value;
+      data={password : _pwd};
+      
+      const xhr=new XMLHttpRequest();
+      xhr.onload=function(){
+        if(xhr.status === 200 || xhr.status===201){
+          alert('password가 변경되었습니다.');
+          location.href='/info';
+        }
+      }
+
+      xhr.onerror=function(){
+        console.error(error);
+      }
+
+      xhr.open('PATCH', '/auth/changePWD');
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.send(JSON.stringify(data));
+    }
+  </script>
+</body>
+</html>
